@@ -1,0 +1,50 @@
+{% extends "blog/base.html" %}
+
+{% block title %} {{ post.title }} {% endblock %}
+
+{% block content %}
+    <section>
+        <h3>
+            <a href="{% url 'category_view' post.category.slug %}">
+                {{ post.category }}
+            </a>
+        </h3>
+		<h2>{{ post.title }}</h2>
+		<figure class="figure-center">
+			{% if post.image != None %}
+                <img class="img-rounded" width="700" src="{{ post.image.url }}">
+            {% endif %}
+        </figure>
+		<div class="container">
+		    <p>
+                {{ post.text }}
+			</p>
+        </div>
+    </section>
+    <hr class="hr-post">
+    <br>
+    <div class="container">
+        {% if user.is_active %}
+            Ваш комментарий опубликуется после проверки модератором.
+            <form action="" method="POST">
+                {% csrf_token %}
+                {{ form.text }}
+                <input type="submit" class="btn" value="Отправить">
+            </form>
+        {% else %}
+            <p align="center">
+                Чтобы оставить комментарий, войдите на сайт.
+            </p>
+        {% endif %}
+
+    <h4>Комментарии:</h4>
+    {% for comm in comment %}
+        <h4>
+            {{ comm.author }}
+        </h4>
+        <p>
+            {{ comm.text }}
+        </p>
+    {% endfor %}
+    </div>
+{% endblock %}

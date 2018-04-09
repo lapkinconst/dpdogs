@@ -1,0 +1,126 @@
+{% load staticfiles %} {% load bootstrap3 %}
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <script src="{% bootstrap_jquery_url %}"></script>
+    {% bootstrap_css %}
+    {% bootstrap_javascript %}
+    <link rel="stylesheet" href="{% static 'blog/css/global.css' %}">
+	<title>{% block title %}{% endblock %}</title>
+</head>
+<body>
+    {% if user.is_authenticated == False %}
+        <a href="{% url 'sign_up' %}">Зарегистрироваться</a>
+        <a href="{% url 'log_in' %}">Залогиниться</a>
+    {% endif %}
+    {% if user.is_authenticated %}
+        <!-- <a href="{% url 'profile' %}">Профиль</a> -->
+        <a href="{% url 'log_out' %}">Разлогиниться</a>
+    {% endif %}
+    <header>
+        <nav>
+			<ul class="nav navbar-nav">
+				<li>
+                    <a href="/category/pugs/">Мопсики</a>
+                </li>
+				<li>
+                    <a href="/category/labradors/">Лабрадорчики</a>
+                </li>
+				<li>
+                    <a href="/category/shepherds/">Овчарочки</a>
+                </li>
+				<li>
+                    <h1>
+                        <a href="/">Собачки в наших сердечках</a>
+                    </h1>
+                </li>
+				<li>
+                    <a href="/feedback/">Написать на почту</a>
+                </li>
+				<li>
+                    <a href="http://twitter.com/blogsdogs">
+                        <img src="{% static 'blog/img/social-twitter.png' %}">
+                    </a>
+                </li>
+				<li>
+                    <a href="http://youtube.com/blogsdogs">
+                        <img src="{% static 'blog/img/social-youtube.png' %}">
+                    </a>
+                </li>
+				<li>
+                    <a href="http://instagram.com/blogsdogs">
+                        <img src="{% static 'blog/img/social-instagram.png' %}">
+                    </a>
+                </li>
+				<li>
+                    <a href="http://vk.com/blogsdogs">
+                        <img src="{% static 'blog/img/social-vk.png' %}">
+                    </a>
+                </li>
+			</ul>
+		</nav>
+	</header>
+    <main>
+        {% block content %}{% endblock %}
+    </main>
+    <hr class="hr-footer">
+	<footer>
+		<nav class=" container col-md-6 nav-footer-center">
+			<ul class="nav nav-pills nav-stacked">
+				<li>
+                    <a href="/category/pugs/">Мопсики</a>
+                </li>
+				<li>
+                    <a href="/category/labradors/">Лабрадорчики</a>
+                </li>
+				<li>
+                    <a href="/category/shepherds/">Овчарочки</a>
+                </li>
+			</ul>
+		</nav>
+		<nav class=" container col-md-6 nav-footer-center">
+			<ul class="nav nav-pills nav-stacked">
+				<li>
+                    <a href="/feedback/">
+                        <img src="{% static 'blog/img/social-mail.png' %}">
+                        <span class="mail-space"></span> Написать на почту
+                    </a>
+                </li>
+				<div class="col-md-5">
+					 <a href="http://twitter.com/blogsdogs">
+                         <img src="{% static 'blog/img/social-twitter.png' %}">
+                         <span class="space"></span>Twitter
+                     </a>
+				</div>
+				<div class="col-md-5">
+					<a href="http://youtube.com/blogsdogs">
+                        <img src="{% static 'blog/img/social-youtube.png' %}">
+                        <span class="space"></span>YouTube
+                    </a>
+				</div>
+				<div class="col-md-5">
+				    <a href="http://instagram.com/blogsdogs">
+                        <img src="{% static 'blog/img/social-instagram.png' %}">
+                        <span class="space"></span>Instagram
+                    </a>
+				</div>
+				<div class="col-md-5">
+				    <a href="http://vk.com/blogsdogs">
+                        <img src="{% static 'blog/img/social-vk.png' %}">
+                        <span class="space"></span>VK
+                    </a>
+				</div>
+			</ul>
+		</nav>
+	</footer>
+</body>
+</html>
+
+
+
+
+
+
+
+

@@ -1,0 +1,24 @@
+{% extends "blog/base.html" %}
+{% block title %} Авторизация {% endblock %}
+{% block content %}
+    <form action="" method="POST">
+    {% csrf_token %}
+    <div class="container">
+
+        <div class="login">
+                <label for="id_username">Логин: </label>
+                {{ form.username }}
+        </div>
+        <div class="login">
+
+                <label for="id_password">Пароль: </label>
+                {{ form.password }}
+
+        </div>
+        <div class="login">
+        <input type="submit" class="btn" value="Войти" />
+        </div>
+    </div>
+    </form>
+
+{% endblock %}

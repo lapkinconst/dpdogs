@@ -1,0 +1,52 @@
+{% extends 'blog/base.html' %}
+
+{% block title %}{{ category.title }}{% endblock %}
+
+{% block content %}
+
+    <section>
+        <h2>{{ category.title }}</h2>
+        <div class="container">
+            <p>{{ category.description|safe }}</p>
+        </div>
+        <ul>
+        {% for post in category.post_set.all|dictsortreversed:'published_date' %}
+            {% if post.status %}
+                <h3>
+                    <a href="{% url 'post_view' post.slug %}">
+                        {{ post.title }}
+                    </a>
+                </h3>
+                {% if post.image != None %}
+                    <figure class="figure-center">
+				        <img class="img-rounded" width="700" src="{{ post.image.url }}">
+			        </figure>
+                {% endif %}
+                <br />
+                <div class="container">
+                    <p>{{ post.text }}</p>
+                </div>
+                <hr class="hr-post">
+            {% endif %}
+        {% endfor %}
+        </ul>
+    </section>
+    <br>
+    <div class="container">
+        {% if posts.has_previous %}
+            <a href="?page={{ posts.previous_page_number }}"> <- </a>
+        {% endif %}
+
+        {% for page in posts.paginator.page_range %}
+            {% if page == posts.number %}
+                <strong>{{ page }}</strong>
+            {% else %}
+                <a href="?page={{ page }}"> {{ page }}</a>
+            {% endif %}
+        {% endfor %}
+
+        {% if posts.has_next %}
+            <a href="?page={{ posts.next_page_number }}"> -> </a>
+        {% endif %}
+    </div>
+{% endblock %}

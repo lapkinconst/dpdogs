@@ -1,0 +1,57 @@
+{% extends 'blog/base.html' %}
+
+{% block title %}Блог о собачках{% endblock %}
+
+{% block content %}
+
+        {% for post in posts %}
+
+		<section>
+			<h3>
+                <a href="{% url 'category_view' post.category.slug %}">
+                    {{ post.category }}
+                </a>
+            </h3>
+            <h2>
+                <a href="{% url 'post_view' post.slug %}">
+                    {{ post.title }}
+                </a>
+            </h2>
+			<figure class="figure-center">
+                {% if post.image != None %}
+                    <img class="image-rounded" width="700" src="{{ post.image.url }}">
+                {% endif %}
+			</figure>
+			<div class="container">
+				<p>
+                    {{ post.description }}
+				</p>
+				<p class="a-right">
+					<a href="{% url 'post_view' post.slug %}">Подробнее</a>
+				</p>
+			</div>
+		</section>
+		<br>
+		<hr class="hr-post">
+    {% endfor %}
+
+    <div class="container">
+    <p align="center">
+        {% if posts.has_previous %}
+            <a href="?page={{ posts.previous_page_number }}"> <- </a>
+        {% endif %}
+
+        {% for page in posts.paginator.page_range %}
+            {% if page == posts.number %}
+                <strong>{{ page }}</strong>
+            {% else %}
+                <a href="?page={{ page }}"> {{ page }}</a>
+            {% endif %}
+        {% endfor %}
+
+        {% if posts.has_next %}
+            <a href="?page={{ posts.next_page_number }}"> -> </a>
+        {% endif %}
+    </p>
+    </div>
+{% endblock %}

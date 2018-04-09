@@ -1,0 +1,35 @@
+{% extends 'blog/base.html' %}
+
+{% block title %}Напиши мне!{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <div class="text-center">
+			<h4>У вас есть вопросы?</h4>
+			<h4>Вы можете связаться со мной через почту по форме снизу.</h4>
+		</div>		
+		<br>
+		<hr class="hr-feedback">
+        <form action="{% url 'contact' %}" method="post">
+            {% csrf_token %}
+            <div>
+                <label for="id_subject">Тема:</label>
+                {{ form.subject }}
+            </div>
+            <div>
+                <label for="id_sender">E-mail:</label>
+                {{ form.sender }}
+            </div>
+            <div>
+                <label for="id_message">Сообщение:</label>
+                {{ form.message }}
+            </div>
+            <div>
+                <label for="id_copy">{{ form.copy }} Отправить копию себе </label>
+            </div>
+            <br>
+            <input type="submit" class="btn" value="Отправить сообщение"/>
+        </form>
+    </div>
+
+{% endblock %}
